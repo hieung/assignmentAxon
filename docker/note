@@ -1,0 +1,19 @@
+#WRITING-APP
+docker build -t hieung/writing:1.0 .
+
+#READING-APP
+docker build -t hieung/reading:1.0 .
+
+#PUBLISHING-APP
+docker build -t hieung/publishing:1.0 .
+
+#SUBCRIBING-APP
+docker build -t hieung/subcribing:1.0 .
+
+#POSTGRES-CFS
+docker build -t hieung/postgres-cfs:1.0 .
+docker run --name postgres-cfs -p 5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d hieung/postgres-cfs:1.0
+
+#RABBITMQ-CFS
+docker build -t hieung/rabbitmq-cfs:1.0 .
+docker run -d --hostname $CONTAINER --name $CONTAINER -p 15672:15672 -e RABBITMQ_ERLANG_COOKIE='example secret' hieung/rabbitmq-cfs:1.0

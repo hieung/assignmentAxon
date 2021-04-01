@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "efecc64a-545c-4c76-8bb6-4e1938a84441",
+		"name": "axon_cfs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "\u001dcreate CFS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"agencyId\": \"562c89de-f140-4482-8ef5-5f1703b286b6\",\n    \"userId\": \"USER_001\",\n    \"eventNumber\": \"3234022\",\n    \"eventTypeCode\": \"SMO\",\n    \"eventTime\": \"2020-11-25 07:36:04.193\",\n    \"dispatchTime\": \"2020-11-26 13:55:46.466\",\n    \"responder\": \"OFFICER_001\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8887/v1/api/cfs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8887",
+					"path": [
+						"v1",
+						"api",
+						"cfs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchCfsByResponder",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/v1/api/searchCfsByResponder?responder=OFFICER_001&agencyId=562c89de-f140-4482-8ef5-5f1703b286b6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"api",
+						"searchCfsByResponder"
+					],
+					"query": [
+						{
+							"key": "responder",
+							"value": "OFFICER_001"
+						},
+						{
+							"key": "agencyId",
+							"value": "562c89de-f140-4482-8ef5-5f1703b286b6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchCfsForTimeRange",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/v1/api/searchCfsForTimeRange?from=2020-11-25 00:00:04&to=2020-11-27 00:00:04&agencyId=562c89de-f140-4482-8ef5-5f1703b286b6&size=4&page=0&sort=userId,asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"v1",
+						"api",
+						"searchCfsForTimeRange"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2020-11-25 00:00:04"
+						},
+						{
+							"key": "to",
+							"value": "2020-11-27 00:00:04"
+						},
+						{
+							"key": "agencyId",
+							"value": "562c89de-f140-4482-8ef5-5f1703b286b6"
+						},
+						{
+							"key": "size",
+							"value": "4"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "sort",
+							"value": "userId,asc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

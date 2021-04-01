@@ -1,0 +1,84 @@
+version: '3.4'
+
+services:
+  postgres-cfs:
+    container_name: postgres-cfs
+    image: hieung/postgres-cfs:1.0.0
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+    ports:
+      - 5432:5432
+    networks:
+      - cfs
+
+  rabbitmq-cfs:
+    container_name: rabbitmq-cfs
+    image: hieung/rabbitmq-cfs:1.0.0
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - cfs
+
+  writing-cfs:
+    container_name: writing-cfs
+    image: hieung/writing-cfs:1.0.0
+    depends_on:
+      - postgres-cfs
+      - rabbitmq-cfs
+    ports:
+      - 8887:8887
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-cfs:5432/cfs_write
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mysecretpassword
+      - SPRING_RABBITMQ_HOST=rabbitmq-cfs
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - CFS_RABBITMQ_EXCHANGE=cfs.exchange
+      - CFS_RABBITMQ_QUEUE=cfs.queue
+      - CFS_RABBITMQ_ROUTINGKEY=cfs.routingkey
+    networks:
+      - cfs
+      
+  subcribing-cfs:
+    container_name: subcribing-cfs
+    image: hieung/subcribing-cfs:1.0.0
+    depends_on:
+      - postgres-cfs
+      - rabbitmq-cfs 
+    ports:
+      - 8886:8886
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-cfs:5432/cfs_read
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mysecretpassword
+      - SPRING_RABBITMQ_HOST=rabbitmq-cfs
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - CFS_RABBITMQ_EXCHANGE=cfs.exchange
+      - CFS_RABBITMQ_QUEUE=cfs.queue
+      - CFS_RABBITMQ_ROUTINGKEY=cfs.routingkey
+    networks:
+      - cfs
+ 
+  reading-cfs:
+    container_name: reading-cfs
+    image: hieung/reading-cfs:1.0.0
+    depends_on:
+      - postgres-cfs  
+    ports:
+      - 8888:8888
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-cfs:5432/cfs_read
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mysecretpassword
+    networks:
+      - cfs
+
+networks:
+  cfs:
+    driver: bridge
