@@ -146,22 +146,28 @@ contain images use to display in README.md file
 #### Docker Build Images
 1. Reading application
 >cd implementation/cfs/reading/
+
 >docker build -t hieung/reading-cfs:1.0.0 .
 2. Writing application
 >cd implementation/cfs/writing/
+
 >docker build -t hieung/writing-cfs:1.0.0 .
 3. Subcribing application
 >cd implementation/cfs/subcribing/
+
 >docker build -t hieung/subcribing-cfs:1.0.0 .
 4. Database Postgres
 >cd docker/postgres
+
 >docker build -t hieung/postgres-cfs:1.0.0 .
 5. Messaging Queue: Rabbitmq
 >cd docker/rabbitmq
+
 >docker build -t hieung/rabbitmq-cfs:1.0.0 . 
 
 Run By docker-compose
 >cd docker
+
 >dock-compose up -d
 
 #### Testing
@@ -194,9 +200,11 @@ Jmeter Testing file put in testing/jmeter/
 
 #### Disadvantages and Enhancement
 ***Disadvantages***
+
 This project describe the detail of implementation of CQRS architecture, and do the POC (proof of concept). Not fully run scaling on local machine because i do not build api gateway applicaion. To run in cloud environment we need some step setup on cloud provider.
 
 ***Enhancement***
+
 Apply fully Spring Cloud to have full micoservice architecture.
 Spring Cloud Config
 Spring Cloud Discovery
