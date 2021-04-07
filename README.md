@@ -1,5 +1,6 @@
 #### System Design
 **Assumption**
+
 The requirements request an system could use to operate data (create, read, update, delete). Ratio between modify data(create, update, delete) and search data (read) is 5% for creation and 95% for search data.
 
 In this homework, we focus on solution to adapt requirements in branstorming phase so i skip the security in this solution.
